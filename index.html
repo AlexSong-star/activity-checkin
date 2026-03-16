@@ -5,17 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>活动打卡</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
       min-height: 100vh;
-      overflow-x: hidden;
     }
     
     .page {
@@ -27,125 +22,70 @@
       padding: 20px;
     }
     
-    .page.active {
-      display: flex;
-    }
+    .page.active { display: flex; }
     
-    .title {
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 40px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
+    .title { color: white; font-size: 28px; font-weight: bold; margin-bottom: 40px; }
     
-    .input-group {
-      width: 100%;
-      max-width: 300px;
-      margin-bottom: 30px;
-    }
-    
+    .input-group { width: 100%; max-width: 300px; margin-bottom: 30px; }
     .input-group input {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 25px;
-      outline: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 100%; padding: 15px 20px; font-size: 18px;
+      border: none; border-radius: 25px; outline: none;
     }
     
     .btn {
-      padding: 15px 50px;
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-      transition: transform 0.2s;
+      padding: 15px 30px; font-size: 18px; font-weight: bold;
+      color: #56ab2f; background: #ffffff; border: 2px solid #56ab2f;
+      border-radius: 25px; cursor: pointer;
     }
     
-    .btn:active {
-      transform: scale(0.95);
-    }
+    .btn-group { display: flex; gap: 15px; }
+    #photoInput { display: none; }
     
-    /* 页面2样式 */
-    .frame-container {
-      position: relative;
+    /* 海报容器 */
+    .poster {
       width: 270px;
       height: 480px;
+      position: relative;
       margin-bottom: 30px;
     }
     
-    .frame-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    /* 相框背景 */
+    .poster-bg {
+      width: 270px;
+      height: 480px;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
       border-radius: 10px;
     }
     
+    /* 用户照片 - 覆盖在白色区域 */
     .user-photo {
       position: absolute;
-      top: 95px;
-      left: 35px;
-      width: 200px;
-      height: 150px;
+      top: 65px;
+      left: 25px;
+      width: 220px;
+      height: 300px;
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: 8px;
     }
     
-    .user-name-overlay {
+    /* 姓名 */
+    .name {
       position: absolute;
       top: 380px;
       left: 0;
       right: 0;
       text-align: center;
-      color: #8B4513;
       font-size: 20px;
       font-weight: bold;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-    }
-    
-    .btn-group {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .btn-upload {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-    }
-    
-    .btn-generate {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      box-shadow: 0 4px 15px rgba(67, 233, 123, 0.4);
-    }
-    
-    /* 隐藏文件输入 */
-    #photoInput {
-      display: none;
-    }
-    
-    /* 页面3样式 */
-    .final-poster {
-      width: 270px;
-      height: 480px;
-      border-radius: 10px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-      margin-bottom: 30px;
-    }
-    
-    .btn-save {
-      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-      box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+      color: black;
     }
   </style>
 </head>
 <body>
-  <!-- 第1页：姓名输入 -->
+  <!-- 第1页 -->
   <div id="page1" class="page active">
     <h1 class="title">活动打卡</h1>
     <div class="input-group">
@@ -154,158 +94,137 @@
     <button class="btn" onclick="goToPage2()">打卡</button>
   </div>
   
-  <!-- 第2页：上传照片 -->
+  <!-- 第2页 -->
   <div id="page2" class="page">
-    <div class="frame-container">
-      <img id="frameImg" class="frame-image" src="" alt="相框">
-      <img id="userPhoto" class="user-photo" style="display:none" alt="用户照片">
-      <div id="nameOverlay" class="user-name-overlay"></div>
+    <div class="poster">
+      <!-- 用户照片在下层，相框在上层 -->
+      <img id="photo2" class="user-photo" src="" style="display:none;">
+      <img class="poster-bg" src="frame.png" alt="相框">
+      <div id="name2" class="name"></div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-upload" onclick="uploadPhoto()">上传照片</button>
-      <button class="btn btn-generate" onclick="goToPage3()">生成海报</button>
+      <button class="btn" onclick="document.getElementById('photoInput').click()">上传照片</button>
+      <button class="btn" onclick="goToPage3()">生成海报</button>
     </div>
-    <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoSelect(event)">
+    <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
   </div>
   
-  <!-- 第3页：最终海报 -->
+  <!-- 第3页 -->
   <div id="page3" class="page">
-    <canvas id="finalCanvas" class="final-poster"></canvas>
-    <button class="btn btn-save" onclick="savePoster()">保存海报</button>
+    <div class="poster">
+      <!-- 用户照片在下层，相框在上层 -->
+      <img id="photo3" class="user-photo" src="" style="display:none;">
+      <img class="poster-bg" src="frame.png" alt="相框">
+      <div id="name3" class="name"></div>
+    </div>
+    <button class="btn" onclick="savePoster()">保存海报</button>
   </div>
   
   <script>
-    // 全局变量
     let userName = '';
     let userPhotoData = null;
     
-    // 相框图片（需要替换为实际相框）
-    const frameUrl = './frame.png';
-    
-    // 页面跳转
     function goToPage2() {
       const name = document.getElementById('nameInput').value.trim();
-      if (!name) {
-        alert('请输入姓名');
-        return;
-      }
+      if (!name) return alert('请输入姓名');
       userName = name;
-      document.getElementById('nameOverlay').textContent = userName;
-      document.getElementById('frameImg').src = frameUrl;
-      switchPage(2);
+      document.getElementById('name2').textContent = userName;
+      showPage(2);
     }
     
     function goToPage3() {
-      if (!userPhotoData) {
-        alert('请先上传照片');
-        return;
-      }
-      generatePoster();
-      switchPage(3);
+      if (!userPhotoData) return alert('请先上传照片');
+      document.getElementById('photo3').src = userPhotoData;
+      document.getElementById('photo3').style.display = 'block';
+      document.getElementById('name3').textContent = userName;
+      showPage(3);
     }
     
-    function switchPage(pageNum) {
+    function showPage(n) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + pageNum).classList.add('active');
+      document.getElementById('page' + n).classList.add('active');
     }
     
-    // 上传照片
-    function uploadPhoto() {
-      document.getElementById('photoInput').click();
-    }
-    
-    function handlePhotoSelect(event) {
-      const file = event.target.files[0];
+    function handlePhoto(e) {
+      const file = e.target.files[0];
       if (!file) return;
-      
       const reader = new FileReader();
-      reader.onload = function(e) {
-        userPhotoData = e.target.result;
-        const img = document.getElementById('userPhoto');
-        img.src = userPhotoData;
-        img.style.display = 'block';
+      reader.onload = function(evt) {
+        userPhotoData = evt.target.result;
+        document.getElementById('photo2').src = userPhotoData;
+        document.getElementById('photo2').style.display = 'block';
       };
       reader.readAsDataURL(file);
     }
     
-    // 生成最终海报
-    function generatePoster() {
-      const canvas = document.getElementById('finalCanvas');
-      const ctx = canvas.getContext('2d');
+    function savePoster() {
+      // 用html2canvas或者直接用dataURL合成
+      const poster = document.querySelector('#page3 .poster');
       
-      // 设置画布尺寸 9:16 (270x480)
+      // 创建一个canvas
+      const canvas = document.createElement('canvas');
       canvas.width = 270;
       canvas.height = 480;
+      const ctx = canvas.getContext('2d');
       
-      // 加载相框图片
-      const frameImg = new Image();
-      frameImg.crossOrigin = 'anonymous';
-      frameImg.onload = function() {
-        ctx.drawImage(frameImg, 0, 0, 270, 480);
+      // 先画用户照片（在下层）
+      const userImg = new Image();
+      userImg.crossOrigin = 'anonymous';
+      userImg.src = userPhotoData;
+      
+      userImg.onload = function() {
+        // 裁剪照片适应区域
+        const x = 25, y = 65, w = 220, h = 300;
+        const imgRatio = userImg.width / userImg.height;
+        const targetRatio = w / h;
+        let sx, sy, sw, sh;
         
-        // 绘制用户照片
-        if (userPhotoData) {
-          const userImg = new Image();
-          userImg.crossOrigin = 'anonymous';
-          userImg.onload = function() {
-            // 绘制到照片区域
-            ctx.drawImage(userImg, 35, 95, 200, 150);
-            
-            // 绘制姓名
-            ctx.fillStyle = '#8B4513';
-            ctx.font = 'bold 20px "PingFang SC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(userName, 135, 400);
-          };
-          userImg.src = userPhotoData;
+        if (imgRatio > targetRatio) {
+          sh = userImg.height;
+          sw = sh * targetRatio;
+          sy = 0;
+          sx = (userImg.width - sw) / 2;
+        } else {
+          sw = userImg.width;
+          sh = sw / targetRatio;
+          sx = 0;
+          sy = (userImg.height - sh) / 2;
         }
+        
+        ctx.drawImage(userImg, sx, sy, sw, sh, x, y, w, h);
+        
+        // 再画相框（在上层）
+        const frameImg = new Image();
+        frameImg.crossOrigin = 'anonymous';
+        frameImg.src = 'frame.png';
+        
+        frameImg.onload = function() {
+          ctx.drawImage(frameImg, 0, 0, 270, 480);
+          
+          // 画姓名
+          ctx.fillStyle = 'black';
+          ctx.font = 'bold 20px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(userName, 135, 410);
+          
+          // 下载
+          const link = document.createElement('a');
+          link.download = formatDate() + '.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          alert('海报已保存');
+        };
       };
-      frameImg.src = frameUrl;
     }
     
-    // 保存海报
-    function savePoster() {
-      const canvas = document.getElementById('finalCanvas');
-      
-      // 生成文件名：年月日时分秒
-      const now = new Date();
-      const fileName = formatDate(now) + '.png';
-      
-      // 转换为图片
-      const dataUrl = canvas.toDataURL('image/png');
-      
-      // iOS 处理
-      if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-        // 使用 JSBridge 或特殊处理
-        downloadImage(dataUrl, fileName);
-      } else {
-        // Android 和其他
-        downloadImage(dataUrl, fileName);
-      }
-    }
-    
-    function downloadImage(dataUrl, fileName) {
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // 提示保存成功
-      setTimeout(() => {
-        alert('海报已保存到相册：' + fileName);
-      }, 500);
-    }
-    
-    function formatDate(date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      const hour = String(date.getHours()).padStart(2, '0');
-      const minute = String(date.getMinutes()).padStart(2, '0');
-      const second = String(date.getSeconds()).padStart(2, '0');
-      return year + month + day + hour + minute + second;
+    function formatDate() {
+      const d = new Date();
+      return d.getFullYear() +
+        String(d.getMonth()+1).padStart(2,'0') +
+        String(d.getDate()).padStart(2,'0') +
+        String(d.getHours()).padStart(2,'0') +
+        String(d.getMinutes()).padStart(2,'0') +
+        String(d.getSeconds()).padStart(2,'0');
     }
   </script>
 </body>
