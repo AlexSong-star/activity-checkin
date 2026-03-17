@@ -218,11 +218,11 @@
           ctx.drawImage(frameImg, 0, 0);
           
           // 画姓名 - 调整位置，颜色黑色
-          const nameY = 80 * (canvas.height / 480);
+          const nameY = (80 + 30) * (canvas.height / 480);
           ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (20 * canvas.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(userName, 20, nameY);
+          ctx.fillText(userName, 20 + 20 * (canvas.width / 270), nameY);
           
           // 显示图片
           const dataUrl = canvas.toDataURL('image/png');
@@ -300,11 +300,11 @@
             ctx.drawImage(frameImg, 0, 0);
             
             // 绘制姓名 - 调整位置，颜色黑色
-            const nameY = 80 * (frameImg.height / 480);
+            const nameY = (80 + 30) * (frameImg.height / 480);
             ctx.fillStyle = 'black';
             ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
             ctx.textAlign = 'left';
-            ctx.fillText(userName, 20, nameY);
+            ctx.fillText(userName, 20 + 20 * (frameImg.width / 270), nameY);
             
             saveToAlbum(canvas);
           };
@@ -316,11 +316,11 @@
           // 没有照片时只绘制相框
           ctx.drawImage(frameImg, 0, 0);
           
-          const nameY = 80 * (frameImg.height / 480);
+          const nameY = (80 + 30) * (frameImg.height / 480);
           ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(userName, 20, nameY);
+          ctx.fillText(userName, 20 + 20 * (frameImg.width / 270), nameY);
           
           saveToAlbum(canvas);
         }
