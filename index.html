@@ -222,7 +222,7 @@
           ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (16 * canvas.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(userName, 60 + 10 * (canvas.width / 270), nameY);
+          ctx.fillText(userName, 80 + 10 * (canvas.width / 270), nameY);
           
           // 显示图片
           const dataUrl = canvas.toDataURL('image/png');
@@ -304,7 +304,7 @@
             ctx.fillStyle = 'black';
             ctx.font = 'bold ' + (16 * frameImg.width / 270) + 'px sans-serif';
             ctx.textAlign = 'left';
-            ctx.fillText(userName, 60 + 10 * (frameImg.width / 270), nameY);
+            ctx.fillText(userName, 80 + 10 * (frameImg.width / 270), nameY);
             
             saveToAlbum(canvas);
           };
@@ -320,7 +320,7 @@
           ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (16 * frameImg.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(userName, 60 + 10 * (frameImg.width / 270), nameY);
+          ctx.fillText(userName, 80 + 10 * (frameImg.width / 270), nameY);
           
           saveToAlbum(canvas);
         }
