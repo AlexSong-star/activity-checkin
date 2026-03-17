@@ -137,7 +137,7 @@
     <div class="poster">
       <!-- 用户照片在下层，相框在上层 -->
       <img id="photo2" class="user-photo" src="" style="display:none;">
-      <img class="poster-bg" src="frame-new.png" alt="相框">
+      <img class="poster-bg" src="frame.png" alt="相框">
       <div id="name2" class="name"></div>
     </div>
     <div class="btn-group">
@@ -176,7 +176,7 @@
       // 创建canvas生成海报
       const frameImg = new Image();
       frameImg.crossOrigin = 'anonymous';
-      frameImg.src = 'frame-new.png';
+      frameImg.src = 'frame.png';
       
       frameImg.onload = function() {
         const canvas = document.createElement('canvas');
@@ -255,7 +255,7 @@
       // 直接用 canvas 绘制，尺寸跟随相框图片
       const frameImg = new Image();
       frameImg.crossOrigin = 'anonymous';
-      frameImg.src = 'frame-new.png';
+      frameImg.src = 'frame.png';
       
       frameImg.onload = function() {
         const canvas = document.createElement('canvas');
