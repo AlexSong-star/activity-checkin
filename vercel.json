@@ -9,9 +9,17 @@
     {
       "src": "frame.png", 
       "use": "@vercel/static"
+    },
+    {
+      "src": "api/signature.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/signature.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"
