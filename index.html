@@ -217,10 +217,10 @@
           // 画相框
           ctx.drawImage(frameImg, 0, 0);
           
-          // 画姓名 - 调整位置，颜色黑色
-          const nameY = (80 + 30) * (canvas.height / 480);
+          // 画姓名 - 调整位置，字号改小
+          const nameY = (80 + 30 - 10) * (canvas.height / 480);
           ctx.fillStyle = 'black';
-          ctx.font = 'bold ' + (20 * canvas.width / 270) + 'px sans-serif';
+          ctx.font = 'bold ' + (16 * canvas.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
           ctx.fillText(userName, 20 + 20 * (canvas.width / 270), nameY);
           
@@ -299,10 +299,10 @@
             // 最后绘制相框（在上层）
             ctx.drawImage(frameImg, 0, 0);
             
-            // 绘制姓名 - 调整位置，颜色黑色
-            const nameY = (80 + 30) * (frameImg.height / 480);
+            // 绘制姓名 - 调整位置，字号改小
+            const nameY = (80 + 30 - 10) * (frameImg.height / 480);
             ctx.fillStyle = 'black';
-            ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
+            ctx.font = 'bold ' + (16 * frameImg.width / 270) + 'px sans-serif';
             ctx.textAlign = 'left';
             ctx.fillText(userName, 20 + 20 * (frameImg.width / 270), nameY);
             
@@ -316,9 +316,9 @@
           // 没有照片时只绘制相框
           ctx.drawImage(frameImg, 0, 0);
           
-          const nameY = (80 + 30) * (frameImg.height / 480);
+          const nameY = (80 + 30 - 10) * (frameImg.height / 480);
           ctx.fillStyle = 'black';
-          ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
+          ctx.font = 'bold ' + (16 * frameImg.width / 270) + 'px sans-serif';
           ctx.textAlign = 'left';
           ctx.fillText(userName, 20 + 20 * (frameImg.width / 270), nameY);
           
