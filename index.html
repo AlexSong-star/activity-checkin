@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>活动打卡</title>
+  <title>出征海报</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -77,13 +77,13 @@
     /* 姓名 */
     .name {
       position: absolute;
-      top: 320px;
+      top: 60px;
       left: 0;
       right: 0;
       text-align: center;
       font-size: 20px;
       font-weight: bold;
-      color: white;
+      color: black;
       z-index: 11;
     }
     .save-tip {
@@ -125,11 +125,11 @@
   <!-- 第1页 -->
   <div id="page1" class="page active">
     <div class="season-title">春醒时·野新生</div>
-    <h1 class="title">活动打卡</h1>
+    <h1 class="title">出征海报</h1>
     <div class="input-group">
       <input type="text" id="nameInput" placeholder="请输入您的姓名" maxlength="20">
     </div>
-    <button class="btn" onclick="goToPage2()">立即打卡</button>
+    <button class="btn" onclick="goToPage2()">制作海报</button>
   </div>
   
   <!-- 第2页 -->
@@ -216,9 +216,9 @@
           // 画相框
           ctx.drawImage(frameImg, 0, 0);
           
-          // 画姓名
-          const nameY = 370 * (canvas.height / 480);
-          ctx.fillStyle = 'white';
+          // 画姓名 - 调整到顶部，颜色黑色
+          const nameY = 80 * (canvas.height / 480);
+          ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (20 * canvas.width / 270) + 'px sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText(userName, canvas.width / 2, nameY);
@@ -298,9 +298,9 @@
             // 最后绘制相框（在上层）
             ctx.drawImage(frameImg, 0, 0);
             
-            // 绘制姓名
-            const nameY = 400 * (frameImg.height / 480);
-            ctx.fillStyle = 'white';
+            // 绘制姓名 - 调整到顶部，颜色黑色
+            const nameY = 80 * (frameImg.height / 480);
+            ctx.fillStyle = 'black';
             ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(userName, frameImg.width / 2, nameY);
@@ -315,8 +315,8 @@
           // 没有照片时只绘制相框
           ctx.drawImage(frameImg, 0, 0);
           
-          const nameY = 400 * (frameImg.height / 480);
-          ctx.fillStyle = 'white';
+          const nameY = 80 * (frameImg.height / 480);
+          ctx.fillStyle = 'black';
           ctx.font = 'bold ' + (20 * frameImg.width / 270) + 'px sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText(userName, frameImg.width / 2, nameY);
